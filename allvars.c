@@ -75,8 +75,3 @@ double Dplus;			/* growth factor */
 int Type, MinType, MaxType;
 #endif
 
-int WDM_On;
-int WDM_Vtherm_On;
-double WDM_PartMass_in_kev;
-int FDM_On;
-double FDM_PartMass_in_m22;

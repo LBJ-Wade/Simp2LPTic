@@ -260,7 +260,7 @@ void displacement_fields(void)
 		      
 		      p_of_k *= -log(ampl);
 		      
-		      delta = fac * sqrt(p_of_k) / Dplus;	/* scale back to starting redshift */
+		      delta = fac * sqrt(p_of_k);
 		      
 		      if(k > 0)
 			{

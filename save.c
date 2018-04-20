@@ -228,15 +228,6 @@ void save_local_data(void)
       for(k = 0; k < 3; k++)
 	block[3 * pc + k] = P[i].Vel[k];
 
-#ifdef MULTICOMPONENTGLASSFILE
-      if(WDM_On == 1 && WDM_Vtherm_On == 1 && P[i].Type == 1)
-	add_WDM_thermal_speeds(&block[3 * pc]);
-#else
-#ifndef PRODUCEGAS
-      if(WDM_On == 1 && WDM_Vtherm_On == 1)
-	add_WDM_thermal_speeds(&block[3 * pc]);
-#endif
-#endif
 
       pc++;
 

@@ -131,8 +131,3 @@ extern double Dplus; /* growth factor */
 extern int Type, MinType, MaxType;
 #endif
 
-extern int    WDM_On;
-extern int    WDM_Vtherm_On;
-extern double WDM_PartMass_in_kev;
-extern int FDM_On;
-extern double FDM_PartMass_in_m22;

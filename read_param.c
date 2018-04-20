@@ -104,10 +104,6 @@ void read_parameterfile(char *fname)
   addr[nt] = FileBase;
   id[nt++] = STRING;
 
-  strcpy(tag[nt], "WhichSpectrum");
-  addr[nt] = &WhichSpectrum;
-  id[nt++] = INT;
-
   strcpy(tag[nt], "UnitVelocity_in_cm_per_s");
   addr[nt] = &UnitVelocity_in_cm_per_s;
   id[nt++] = FLOAT;
@@ -122,26 +118,6 @@ void read_parameterfile(char *fname)
 
   strcpy(tag[nt], "InputSpectrum_UnitLength_in_cm");
   addr[nt] = &InputSpectrum_UnitLength_in_cm;
-  id[nt++] = FLOAT;
-
-  strcpy(tag[nt], "WDM_On");
-  addr[nt] = &WDM_On;
-  id[nt++] = INT;
-
-  strcpy(tag[nt], "WDM_Vtherm_On");
-  addr[nt] = &WDM_Vtherm_On;
-  id[nt++] = INT;
-
-  strcpy(tag[nt], "WDM_PartMass_in_kev");
-  addr[nt] = &WDM_PartMass_in_kev;
-  id[nt++] = FLOAT;
-
-  strcpy(tag[nt], "FDM_On");
-  addr[nt] = &FDM_On;
-  id[nt++] = INT;
-  
-  strcpy(tag[nt], "FDM_PartMass_in_m22");
-  addr[nt] = &FDM_PartMass_in_m22;
   id[nt++] = FLOAT;
   
   if((fd = fopen(fname, "r")))
