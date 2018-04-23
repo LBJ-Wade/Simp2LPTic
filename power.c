@@ -94,6 +94,7 @@ void read_power_table(void)
     {
       if(fscanf(fd, " %lg %lg ", &k, &p) == 2)
 	{
+	  p *= pow((InputSpectrum_UnitLength_in_cm / UnitLength_in_cm),3.0);	/* convert to h/Mpc */
 	  PowerTable[NPowerTable].logk = log10(k);
 	  PowerTable[NPowerTable].logD = log10(p);
 	  NPowerTable++;
