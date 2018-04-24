@@ -166,7 +166,7 @@ double PowerSpec_Tabulated(double k)
   logD = (1 - u) * PowerTable[binlow].logD + u * PowerTable[binhigh].logD;
 
   P = pow(10.0, logD);
-
+  P = P/pow(2.0 * M_PI, 3.0);
   return P;
 }
 
