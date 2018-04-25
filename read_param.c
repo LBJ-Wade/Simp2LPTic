@@ -79,7 +79,26 @@ void read_parameterfile(char *fname)
   strcpy(tag[nt], "FileWithInputSpectrum");
   addr[nt] = FileWithInputSpectrum;
   id[nt++] = STRING;
-
+#ifdef HUBBLE_TABLE  
+  strcpy(tag[nt], "FileWithInputHubble");
+  addr[nt] = FileWithInputHubble;
+  id[nt++] = STRING;
+#endif
+#ifdef HUBBLE_USER
+  strcpy(tag[nt], "HubbleUserA");
+  addr[nt] = &HubbleUserA;
+  id[nt++] = FLOAT;
+#endif  
+#ifdef DMMASS_TABLE  
+  strcpy(tag[nt], "FileWithInputDMmass");
+  addr[nt] = FileWithInputDMmass;
+  id[nt++] = STRING;
+#endif
+#ifdef OMEGA_USER
+  strcpy(tag[nt], "OmegaUserA");
+  addr[nt] = &OmegaUserA;
+  id[nt++] = FLOAT;
+#endif
   strcpy(tag[nt], "GlassTileFac");
   addr[nt] = &GlassTileFac;
   id[nt++] = INT;

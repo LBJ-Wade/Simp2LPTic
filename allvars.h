@@ -1,9 +1,22 @@
 #include <drfftw_mpi.h>
+#include <gsl/gsl_spline.h>
 
 #define  PI          3.14159265358979323846 
 #define  GRAVITY     6.672e-8
 #define  HUBBLE      3.2407789e-18   /* in h/sec */
 
+#define HUBBLE_TABLE_LENGTH 100    /*!< the look up table used to hold the hubble parameter*/
+#define DMMASS_TABLE_LENGTH 100    /*!< the look up table used to hold the dmmass parameter*/
+#ifdef HUBBLE_TABLE
+gsl_interp_accel *MeHubbleAcc;
+gsl_spline *MeHubbleSpline;
+#endif
+#ifdef DMMASS_TABLE_LENGTH
+gsl_interp_accel *MeDMMassAcc;
+gsl_spline *MeDMMassSpline;
+#endif
+extern double HubbleUserA;
+extern double OmegaUserA;
 
 double PowerSpec(double kmag);
 double GrowthFactor(double astart, double aend);
@@ -64,7 +77,12 @@ extern long long IDStart;
 
 extern char     GlassFile[500]; 
 extern char     FileWithInputSpectrum[500];
-
+#ifdef HUBBLE_TABLE
+extern char     FileWithInputHubble[500];
+#endif
+#ifdef DMMASS_TABLE
+extern char     FileWithInputDMmass[500];
+#endif
 extern int      GlassTileFac; 
 
 extern double   Box;

@@ -78,7 +78,31 @@ int main(int argc, char **argv)
   exit(0);
 }
 
-
+void calculate_omega(void)
+{
+	double omega_a,m,rho,rho_c,hubble_a;
+	m = gsl_spline_eval(MeDMMassSpline,InitTime,MeDMMassAcc);
+	hubble_a = Hubble * sqrt(Omega / pow(InitTime, 3) + (1 - Omega - OmegaLambda) / pow(InitTime, 2) + OmegaLambda);
+#ifdef HUBBLE_TABLE
+    hubble_a = Hubble * gsl_spline_eval(MeHubbleSpline,InitTime,MeHubbleAcc);
+#endif	
+#ifdef HUBBLE_USER
+    hubble_a = Hubble * HubbleUserA;
+#endif
+	rho_c = 3.0 * hubble_a * hubble_a / (8.0 * PI * G);
+	rho = m * Nsample * Nsample * Nsample / (Box * Box * Box);
+	omega_a = rho/rho_c;
+#ifdef OMEGA_USER
+    if(fabs(omega_a- OmegaUserA > 0.001))
+    {
+      printf('You are using both DMMASS_TABLE and OMEGA_USER, but they are not consistent, please check.\n');
+      printf('The calculated density fraction from DMMASS_TABLE is %f, the critical density is %f, and OmegaUserA is %f.\n',omega_a,rho_c,OmegaUserA);
+      printf('I defautly assume that your OmegaUserA is correct, I will use it for further calculation.\n');
+    }    
+#endif
+    OmegaUserA = omega_a;
+    printf('The Omega Matter at the initial redshift is %f.\n',OmegaUserA);
+}
 
 
 
@@ -120,8 +144,24 @@ void displacement_fields(void)
   hubble_a =
     Hubble * sqrt(Omega / pow(InitTime, 3) + (1 - Omega - OmegaLambda) / pow(InitTime, 2) + OmegaLambda);
 
+#ifdef HUBBLE_TABLE
+  me_init_hubble_table();
+  hubble_a = Hubble * gsl_spline_eval(MeHubbleSpline,InitTime,MeHubbleAcc);
+#endif
+
+#ifdef HUBBLE_USER
+  hubble_a = Hubble * HubbleUserA;
+#endif
+
+#ifdef DMMASS_TABLE
+  me_init_dmmass_table();
+  calculate_omega();
+#endif
+
   vel_prefac = InitTime * hubble_a * F_Omega(InitTime);
   vel_prefac2 = InitTime * hubble_a * F2_Omega(InitTime);
+
+
 
   vel_prefac /= sqrt(InitTime);	/* converts to Gadget velocity */
   vel_prefac2 /= sqrt(InitTime);

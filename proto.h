@@ -1,6 +1,12 @@
 
 #include <gsl/gsl_rng.h>
-
+#ifdef HUBBLE_TABLE
+void me_init_hubble_table(void);
+#endif
+#ifdef DMMASS_TABLE
+void me_init_dmmass_table(void);
+#endif
+void   calculate_omega(void);
 double GrowthFactor(double astart, double aend);
 void   print_spec(void);
 int    FatalError(int errnum);

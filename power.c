@@ -272,7 +272,9 @@ double F_Omega(double a)
   double omega_a;
 
   omega_a = Omega / (Omega + a * (1 - Omega - OmegaLambda) + a * a * a * OmegaLambda);
-
+#if defined(DMMASS_TABLE) || defined(OMEGA_USER)
+  omega_a = OmegaUserA;
+#endif
   return pow(omega_a, 0.6);
 }
 
@@ -282,7 +284,9 @@ double F2_Omega(double a)
   double omega_a;
 
   omega_a = Omega / (Omega + a * (1 - Omega - OmegaLambda) + a * a * a * OmegaLambda);
-
+#if defined(DMMASS_TABLE) || defined(OMEGA_USER)
+  omega_a = OmegaUserA;
+#endif
   return 2 * pow(omega_a, 4./7.);
 }
 

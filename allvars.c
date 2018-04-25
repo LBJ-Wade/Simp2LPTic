@@ -1,5 +1,16 @@
 #include "allvars.h"
+#include <gsl/gsl_spline.h>
 
+#ifdef HUBBLE_TABLE
+gsl_interp_accel *MeHubbleAcc;
+gsl_spline *MeHubbleSpline;
+#endif
+#ifdef DMMASS_TABLE_LENGTH
+gsl_interp_accel *MeDMMassAcc;
+gsl_spline *MeDMMassSpline;
+#endif
+double HubbleUserA;
+double OmegaUserA;
 
 struct io_header_1 header1, header;
 
@@ -19,7 +30,12 @@ long long IDStart;
 
 char GlassFile[500];
 char FileWithInputSpectrum[500];
-
+#ifdef HUBBLE_TABLE
+char FileWithInputHubble[500];
+#endif
+#ifdef DMMASS_TABLE
+char FileWithInputDMmass[500];
+#endif
 int GlassTileFac;
 
 double Box;
