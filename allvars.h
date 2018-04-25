@@ -11,7 +11,7 @@
 gsl_interp_accel *MeHubbleAcc;
 gsl_spline *MeHubbleSpline;
 #endif
-#ifdef DMMASS_TABLE_LENGTH
+#ifdef DMMASS_TABLE
 gsl_interp_accel *MeDMMassAcc;
 gsl_spline *MeDMMassSpline;
 #endif
