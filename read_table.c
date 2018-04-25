@@ -55,7 +55,7 @@ void me_init_dmmass_table(void)
   int loop;
   double a[DMMASS_TABLE_LENGTH],m[DMMASS_TABLE_LENGTH];
   char fname[100];
-  strcpy(fname,"dmmass_table.txt");
+  strcpy(fname,FileWithInputDMmass);
   if(!(fd = fopen(fname, "r")))
 	{
 	  printf("can't open file `%s`\n", fname);
