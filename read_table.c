@@ -46,6 +46,7 @@ void me_init_hubble_table(void)
 //  gsl_spline_init(MeHubbleSplineHYDROKICK, a, hydrokick, HUBBLE_TABLE_LENGTH);
   printf("Hubble Table loading done.\n");
   fflush(stdout);
+  fclose(fd);
 }
 #endif
 #ifdef DMMASS_TABLE
@@ -74,6 +75,7 @@ void me_init_dmmass_table(void)
   gsl_spline_init(MeDMMassSpline, a, m, DMMASS_TABLE_LENGTH);
   printf("DMMass Table loading done.\n");
   fflush(stdout);
+  fclose(fd);
 }
 #endif
 #ifdef DRAG_TABLE

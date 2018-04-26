@@ -28,13 +28,13 @@ long long IDStart;
 
 
 
-char GlassFile[500];
-char FileWithInputSpectrum[500];
+char GlassFile[200];
+char FileWithInputSpectrum[200];
 #ifdef HUBBLE_TABLE
-char FileWithInputHubble[500];
+char FileWithInputHubble[200];
 #endif
 #ifdef DMMASS_TABLE
-char FileWithInputDMmass[500];
+char FileWithInputDMmass[200];
 #endif
 int GlassTileFac;
 

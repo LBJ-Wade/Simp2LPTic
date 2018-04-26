@@ -78,12 +78,15 @@ int main(int argc, char **argv)
   exit(0);
 }
 
+#ifdef DMMASS_TABLE
 void calculate_omega(void)
 {
-	double omega_a,m,rho,rho_c,hubble_a;
+	double omega_a, m, rho, rho_c, hubble_a;
+	printf('dmmass test here.\n');
 	m = gsl_spline_eval(MeDMMassSpline,InitTime,MeDMMassAcc);
 	hubble_a = Hubble * sqrt(Omega / pow(InitTime, 3) + (1 - Omega - OmegaLambda) / pow(InitTime, 2) + OmegaLambda);
 #ifdef HUBBLE_TABLE
+    printf('hubble test here.\n');
     hubble_a = Hubble * gsl_spline_eval(MeHubbleSpline,InitTime,MeHubbleAcc);
 #endif	
 #ifdef HUBBLE_USER
@@ -103,7 +106,7 @@ void calculate_omega(void)
     OmegaUserA = omega_a;
     printf('The Omega Matter at the initial redshift is %f.\n',OmegaUserA);
 }
-
+#endif
 
 
 void displacement_fields(void)
@@ -146,7 +149,12 @@ void displacement_fields(void)
 
 #ifdef HUBBLE_TABLE
   me_init_hubble_table();
+#ifdef DMMASS_TABLE
+  me_init_dmmass_table();
+#endif
+  printf('hubble_a = %f.\n',hubble_a);  
   hubble_a = Hubble * gsl_spline_eval(MeHubbleSpline,InitTime,MeHubbleAcc);
+  printf('hubble_a = %f.\n',hubble_a);
 #endif
 
 #ifdef HUBBLE_USER
@@ -154,7 +162,6 @@ void displacement_fields(void)
 #endif
 
 #ifdef DMMASS_TABLE
-  me_init_dmmass_table();
   calculate_omega();
 #endif
 
