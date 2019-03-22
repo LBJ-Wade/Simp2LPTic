@@ -1,4 +1,4 @@
-EXEC   = 2LPTicLCDM
+EXEC   = 2LPTicIDE
 
 OBJS   = main.o power.o allvars.o save.o read_param.o  read_glass.o  \
          nrsrc/nrutil.o nrsrc/qromb.o nrsrc/polint.o nrsrc/trapzd.o  \
@@ -23,7 +23,7 @@ OPT   +=  -DDMMASS_TABLE # switch this on if you want tabulated DM mass
 #OPT   +=  -DACCURATE_DA  # allow user to specify dD/da value for displacement velocity
 
 OPT   +=  -DNO64BITID    # switch this on if you want normal 32-bit IDs
-#OPT   +=  -DCORRECT_CIC  # only switch this on if particles start from a glass (as opposed to grid)
+OPT   +=  -DCORRECT_CIC  # only switch this on if particles start from a glass (as opposed to grid)
 
 #OPT += -DONLY_ZA # swith this on if you want ZA initial conditions (2LPT otherwise)
 

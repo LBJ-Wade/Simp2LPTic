@@ -49,7 +49,7 @@ void read_power_table(void)
   FILE *fd;
   char buf[500];
   double k, p;
-
+  char dummy[20];
 
   sprintf(buf, FileWithInputSpectrum);
 
@@ -63,9 +63,18 @@ void read_power_table(void)
   do
     {
       if(fscanf(fd, " %lg %lg ", &k, &p) == 2)
+		{
 	NPowerTable++;
+		}
       else
+      {
+		  if(fscanf(fd, "%s %s %s",&dummy,&dummy,&dummy)==3)
+		  {
+			  continue;
+	  
+		  }
 	break;
+		}
     }
   while(1);
 
@@ -100,7 +109,14 @@ void read_power_table(void)
 	  NPowerTable++;
 	}
       else
+       {
+		  if(fscanf(fd, "%s %s %s",&dummy,&dummy,&dummy)==3)
+		  {
+			  continue;
+	  
+		  }
 	break;
+		}
     }
   while(1);
 

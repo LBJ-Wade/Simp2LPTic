@@ -5,8 +5,8 @@
 #define  GRAVITY     6.672e-8
 #define  HUBBLE      3.2407789e-18   /* in h/sec */
 
-#define HUBBLE_TABLE_LENGTH 163    /*!< the look up table used to hold the hubble parameter*/
-#define DMMASS_TABLE_LENGTH 163    /*!< the look up table used to hold the dmmass parameter*/
+#define HUBBLE_TABLE_LENGTH 891    /*!< the look up table used to hold the hubble parameter*/
+#define DMMASS_TABLE_LENGTH 891    /*!< the look up table used to hold the dmmass parameter*/
 #ifdef HUBBLE_TABLE
 gsl_interp_accel *MeHubbleAcc;
 gsl_spline *MeHubbleSpline;
