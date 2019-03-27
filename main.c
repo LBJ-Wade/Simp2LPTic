@@ -105,13 +105,21 @@ void calculate_omega(void)
 #ifdef OMEGA_USER
     if(fabs(omega_a- OmegaUserA > 0.001))
     {
-      printf("You are using both DMMASS_TABLE and OMEGA_USER, but they are not consistent, please check.\n");
-      printf("The calculated density fraction from DMMASS_TABLE is %f, the critical density is %f, and OmegaUserA is %f.\n",omega_a,rho_c,OmegaUserA);
-      printf("I defautly assume that your OmegaUserA is correct, I will use it for further calculation.\n");
+      if(ThisTask==0)
+      {
+        printf("You are using both DMMASS_TABLE and OMEGA_USER, but they are not consistent, please check.\n");
+        printf("The calculated density fraction from DMMASS_TABLE is %f, the critical density is %f, and OmegaUserA is %f.\n",omega_a,rho_c,OmegaUserA);
+        printf("I defautly assume that your OmegaUserA is correct, I will use it for further calculation.\n");
+        fflush(stdout);
+	  }
     }    
 #endif
     OmegaUserA = omega_a;
-    printf("The Omega Matter at the initial redshift is %f.\n",OmegaUserA);
+    if(ThisTask==0)
+    {
+      printf("The Omega Matter at the initial redshift is %f.\n",OmegaUserA);
+      fflush(stdout);
+	}
 }
 #endif
 

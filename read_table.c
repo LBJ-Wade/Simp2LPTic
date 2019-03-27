@@ -15,7 +15,7 @@ void me_init_hubble_table(void)
 {
   FILE *fd;
   int loop;
-  double a[HUBBLE_TABLE_LENGTH],h[HUBBLE_TABLE_LENGTH];
+  double ia,ih;
 //  double drift[HUBBLE_TABLE_LENGTH],gravkick[HUBBLE_TABLE_LENGTH],hydrokick[HUBBLE_TABLE_LENGTH];
   char fname[500];
   strcpy(fname,FileWithInputHubble);
@@ -24,9 +24,43 @@ void me_init_hubble_table(void)
 	  printf("can't open file `%s`\n", fname);
 	  exit(0);
 	}
+  if(ThisTask==0)
+  {
+	printf("counting Hubble Table length...\n");
+	fflush(stdout);
+  }  
+  HUBBLE_TABLE_LENGTH=0;
+  do
+    {
+      if(fscanf(fd, "%lg,%lg\n", &ia, &ih) == 2)
+		{
+			HUBBLE_TABLE_LENGTH++;
+		}
+      else
+      {
+		break;
+		}
+    }
+  while(1);
+  if(ThisTask==0)
+  {
+	printf("we find %d pairs of hubble table value.\n",HUBBLE_TABLE_LENGTH);
+	fflush(stdout);
+  }
+  fclose(fd);
+  double a[HUBBLE_TABLE_LENGTH],h[HUBBLE_TABLE_LENGTH];
+  if(!(fd = fopen(fname, "r")))
+	{
+	  printf("can't open file `%s`\n", fname);
+	  exit(0);
+	}
+  if(ThisTask==0)
+  {
 	printf("reading `%s' ...\n", fname);
-    fflush(stdout);
-  printf("loading Hubble Table ...\n");  
+	fflush(stdout);
+	printf("loading Hubble Table ...\n");
+	fflush(stdout);
+  } 
   for(loop=0;loop<HUBBLE_TABLE_LENGTH;loop++)
     {
 		fscanf(fd,"%lf,%lf\n",&a[loop],&h[loop]);	
@@ -44,8 +78,11 @@ void me_init_hubble_table(void)
 //  gsl_spline_init(MeHubbleSplineDRIFT, a, drift, HUBBLE_TABLE_LENGTH);
 //  gsl_spline_init(MeHubbleSplineGRAVKICK, a, gravkick, HUBBLE_TABLE_LENGTH);
 //  gsl_spline_init(MeHubbleSplineHYDROKICK, a, hydrokick, HUBBLE_TABLE_LENGTH);
-  printf("Hubble Table loading done.\n");
-  fflush(stdout);
+  if(ThisTask==0)
+  {
+	printf("Hubble Table loading done.\n");
+	fflush(stdout);
+  }
   fclose(fd);
 }
 #endif
@@ -54,17 +91,50 @@ void me_init_dmmass_table(void)
 {
   FILE *fd;
   int loop;
-  double a[DMMASS_TABLE_LENGTH],m[DMMASS_TABLE_LENGTH];
   char fname[100];
+  double ia,im;
   strcpy(fname,FileWithInputDMmass);
   if(!(fd = fopen(fname, "r")))
 	{
 	  printf("can't open file `%s`\n", fname);
 	  exit(0);
 	}
+  if(ThisTask==0)
+  {
+	printf("counting DMMass Table length...\n");
+	fflush(stdout);
+  }  
+  DMMASS_TABLE_LENGTH=0;
+  do
+    {
+      if(fscanf(fd, "%lg,%lg\n", &ia, &im) == 2)
+		{
+			DMMASS_TABLE_LENGTH++;
+		}
+      else
+      {
+		break;
+		}
+    }
+  while(1);
+  if(ThisTask==0)
+  {
+	printf("we find %d pairs of dmmass table value.\n",DMMASS_TABLE_LENGTH);
+	fclose(fd);
+  }
+  if(!(fd = fopen(fname, "r")))
+	{
+	  printf("can't open file `%s`\n", fname);
+	  exit(0);
+	}
+  if(ThisTask==0)
+  {
 	printf("reading `%s' ...\n", fname);
     fflush(stdout);
-  printf("loading DMMass Table ...\n");  
+    printf("loading DMMass Table ...\n");
+    fflush(stdout);
+  }  
+  double a[DMMASS_TABLE_LENGTH],m[DMMASS_TABLE_LENGTH];
   for(loop=0;loop<DMMASS_TABLE_LENGTH;loop++)
     {
 		fscanf(fd,"%lf,%lf\n",&a[loop],&m[loop]);
@@ -73,8 +143,11 @@ void me_init_dmmass_table(void)
   MeDMMassAcc = gsl_interp_accel_alloc();
   MeDMMassSpline = gsl_spline_alloc(gsl_interp_cspline, DMMASS_TABLE_LENGTH);
   gsl_spline_init(MeDMMassSpline, a, m, DMMASS_TABLE_LENGTH);
-  printf("DMMass Table loading done.\n");
-  fflush(stdout);
+  if(ThisTask==0)
+  {
+    printf("DMMass Table loading done.\n");
+    fflush(stdout);
+  }
   fclose(fd);
 }
 #endif

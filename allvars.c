@@ -11,6 +11,8 @@ gsl_spline *MeDMMassSpline;
 #endif
 double HubbleUserA;
 double OmegaUserA;
+int HUBBLE_TABLE_LENGTH;
+int DMMASS_TABLE_LENGTH;
 
 struct io_header_1 header1, header;
 
