@@ -18,9 +18,10 @@ INCL   = allvars.h proto.h  nrsrc/nrutil.h  Makefile
                                      # particle type
 OPT   +=  -DHUBBLE_TABLE # switch this on if you want tabulated H diagram
 #OPT   +=  -DHUBBLE_USER  # switch this on if you want to give your own H/H0 value
-OPT   +=  -DDMMASS_TABLE # switch this on if you want tabulated DM mass
+#OPT   +=  -DDMMASS_TABLE # switch this on if you want tabulated DM mass
 #OPT   +=  -DOMEGA_USER   # switch this on if you want to give your own omega_matter value at the starting redshift
 #OPT   +=  -DACCURATE_DA  # allow user to specify dD/da value for displacement velocity
+OPT   +=  -DPAIRANDFIXED # switch this on if you want to generated a pair and fixed IC file arxiv:1511.04090
 
 OPT   +=  -DNO64BITID    # switch this on if you want normal 32-bit IDs
 OPT   +=  -DCORRECT_CIC  # only switch this on if particles start from a glass (as opposed to grid)

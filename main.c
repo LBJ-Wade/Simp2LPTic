@@ -681,7 +681,15 @@ void displacement_fields(void)
 		    disp2[axes][(ii * Nmesh + jj) * (2 * (Nmesh / 2 + 1)) + kk] * f8;
 		  dis2 /= (float) nmesh3;
 	      
-		  
+#ifdef PAIRANDFIXED
+#ifdef ONLY_ZA
+		  P[n].Pos[axes] += -dis;
+		  P[n].Vel[axes] = -dis * vel_prefac;
+#else
+		  P[n].Pos[axes] += -dis + 3./7. * dis2;
+		  P[n].Vel[axes] = -dis * vel_prefac + 3./7. * dis2 * vel_prefac2;
+#endif
+#else		  
 #ifdef ONLY_ZA
 		  P[n].Pos[axes] += dis;
 		  P[n].Vel[axes] = dis * vel_prefac;
@@ -689,7 +697,7 @@ void displacement_fields(void)
 		  P[n].Pos[axes] += dis - 3./7. * dis2;
 		  P[n].Vel[axes] = dis * vel_prefac - 3./7. * dis2 * vel_prefac2;
 #endif
-
+#endif
 		  P[n].Pos[axes] = periodic_wrap(P[n].Pos[axes]);
 
 		  if(dis - 3./7. * dis2 > maxdisp)
